@@ -1,0 +1,141 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "QMS",
+    "description": "Queue Management System by Ofaly",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/queues": {
+      "get": {
+        "description": "Get available queues list for organization "
+      },
+      "post": {
+        "description": "Create a queue"
+      }
+    },
+    "/queues/{queueId}": {
+      "get": {
+        "description": "Get description of queue and current status of active counters/tickets\n"
+      },
+      "put": {
+        "description": "update queue with basic params i.e. name of service"
+      },
+      "delete": {
+        "description": "Delete queue with all counters"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        }
+      ]
+    },
+    "/queues/{queueId}/counters": {
+      "get": {
+        "description": "Get list of active counters, title numbers of it in current queue and active tickets for it  "
+      },
+      "post": {
+        "description": "Add another counter (agent) to the queue"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        }
+      ]
+    },
+    "/queues/{queueId}/counters/{counterId}": {
+      "get": {
+        "description": "Get status of current counter"
+      },
+      "post": {
+        "description": "Change basic values for counter i.e.  status:  active or not active"
+      },
+      "delete": {
+        "description": "Delete counter from a queue"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        },
+        {
+          "name": "counterId",
+          "in": "path",
+          "description": "Id of counter queue in a system",
+          "required": true
+        }
+      ]
+    },
+    "/queues/{queueId}/tickets": {
+      "get": {
+        "description": "Get list of all tickets in order by createdAt time "
+      },
+      "post": {
+        "description": "Generate new ticket (print new ticket ) and assign number"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        }
+      ]
+    },
+    "/queues/{queueId}/counters/{counterId}/tickets": {
+      "get": {
+        "description": "Get current active ticket for the counter"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        },
+        {
+          "name": "counterId",
+          "in": "path",
+          "description": "Id of counter queue in a system",
+          "required": true
+        }
+      ]
+    },
+    "/queues/{queueId}/counters/{counterId}/tickets/{tiketId}": {
+      "get": {
+        "description": "Get stats for current assigned (active) ticket"
+      },
+      "delete": {
+        "description": "Delete the ticket from current queue (empty for next available ticket)"
+      },
+      "parameters": [
+        {
+          "name": "queueId",
+          "in": "path",
+          "description": "Id of ( service ) queue in a system",
+          "required": true
+        },
+        {
+          "name": "counterId",
+          "in": "path",
+          "description": "Id of counter queue in a system",
+          "required": true
+        },
+        {
+          "name": "tiketId",
+          "in": "path",
+          "description": "Id of ticket assigned to counter",
+          "required": true
+        }
+      ]
+    }
+  }
+}
