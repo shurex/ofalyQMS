@@ -282,6 +282,9 @@
       "get": {
         "description": "Get current active ticket for the counter"
       },
+      "post": {
+        "description": "Create new ticket and assign to specific counter, as to specify i.e. \"VIP banking\" desk"
+      },
       "parameters": [
         {
           "name": "queueId",
