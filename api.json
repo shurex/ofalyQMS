@@ -8,44 +8,229 @@
   "paths": {
     "/queues": {
       "get": {
-        "description": "Get available queues list for organization "
+        "description": "Get available queues list for organization\n",
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": "optional pagination parameter",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "optional pagination parameter  (by default value is 100)",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "query returned results successfully",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "application/json": {
+                "start": 0,
+                "limit": 100,
+                "count": 2,
+                "results": [
+                  {
+                    "id": 123321,
+                    "name": "Agricultural Bank of Egypt",
+                    "createdAt": "2018-05-02T10:01:55+00:00",
+                    "updatedAt": "2018-05-02T10:01:55+00:00"
+                  },
+                  {
+                    "id": 123323,
+                    "name": "Social fund of Alexandia",
+                    "createdAt": "2018-05-01T10:01:55+00:00",
+                    "updatedAt": "2018-05-01T10:01:55+00:00"
+                  }
+                ]
+              }
+            }
+          },
+          "204": {
+            "description": "no result found by request",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "application/json": {
+                "start": 10,
+                "limit": 100,
+                "count": 0,
+                "results": []
+              }
+            }
+          }
+        }
       },
       "post": {
-        "description": "Create a queue"
+        "description": "Create a queue",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "{\n           \"name\": \"Agricultural Bank of Egypt\"\n}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfuly created a queue",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "application/json": {
+                "id": 123321,
+                "name": "Agricultural Bank of Egypt",
+                "createdAt": "2018-05-02T10:01:55+00:00",
+                "updatedAt": "2018-05-02T10:01:55+00:00"
+              }
+            }
+          }
+        }
       }
     },
     "/queues/{queueId}": {
       "get": {
-        "description": "Get description of queue and current status of active counters/tickets\n"
+        "description": "Get description of queue \n",
+        "responses": {
+          "200": {
+            "description": "Get queue info",
+            "examples": {
+              "application/json": {
+                "id": 123321,
+                "name": "Agricultural Bank of Egypt",
+                "createdAt": "2018-05-02T10:01:55+00:00",
+                "updatedAt": "2018-05-02T10:01:55+00:00"
+              }
+            }
+          }
+        }
       },
       "put": {
-        "description": "update queue with basic params i.e. name of service"
+        "description": "update queue with basic params i.e. name of service",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "\"name\": \"Agricultural Bank of Egypt Updated\"",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update queue basic info",
+            "examples": {
+              "application/json": {
+                "id": 123321,
+                "name": "Agricultural Bank of Egypt Updated",
+                "createdAt": "2018-05-02T10:01:55+00:00",
+                "updatedAt": "2018-05-02T11:03:33+00:00"
+              }
+            }
+          }
+        }
       },
       "delete": {
-        "description": "Delete queue with all counters"
+        "description": "Delete queue with all counters",
+        "responses": {
+          "200": {
+            "description": "Queue successfuly deleted"
+          }
+        }
       },
       "parameters": [
         {
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     },
     "/queues/{queueId}/counters": {
       "get": {
-        "description": "Get list of active counters, title numbers of it in current queue and active tickets for it  "
+        "description": "Get list of active counters, title numbers of it in current queue and active tickets for it  ",
+        "responses": {
+          "200": {
+            "description": "Sucsessfuly got list of counters for queue",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "application/json": {
+                "start": 0,
+                "limit": 100,
+                "count": 2,
+                "results": [
+                  {
+                    "id": 1233243,
+                    "name": "VIP Desk",
+                    "number": 1,
+                    "createdAt": "2018-05-02T10:01:55+00:00",
+                    "updatedAt": "2018-05-02T10:01:55+00:00"
+                  },
+                  {
+                    "id": 1233244,
+                    "name": "Ilsamic Banking",
+                    "number": 2,
+                    "createdAt": "2018-05-02T10:01:55+00:00",
+                    "updatedAt": "2018-05-02T10:01:55+00:00"
+                  }
+                ]
+              }
+            }
+          }
+        }
       },
       "post": {
-        "description": "Add another counter (agent) to the queue"
+        "description": "Add another counter (agent) to the queue",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "{\n    \"name\": \"VIP desk\",\n    \"number\":1\n}",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfuly created a counter for queue",
+            "schema": {
+              "type": "string"
+            },
+            "examples": {
+              "application/json": {
+                "id": 1233243,
+                "name": "VIP Desk",
+                "number": 1,
+                "createdAt": "2018-05-02T10:01:55+00:00",
+                "updatedAt": "2018-05-02T10:01:55+00:00"
+              }
+            }
+          }
+        }
       },
       "parameters": [
         {
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     },
@@ -64,13 +249,15 @@
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         },
         {
           "name": "counterId",
           "in": "path",
           "description": "Id of counter queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     },
@@ -86,7 +273,8 @@
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     },
@@ -99,13 +287,15 @@
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         },
         {
           "name": "counterId",
           "in": "path",
           "description": "Id of counter queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     },
@@ -121,19 +311,22 @@
           "name": "queueId",
           "in": "path",
           "description": "Id of ( service ) queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         },
         {
           "name": "counterId",
           "in": "path",
           "description": "Id of counter queue in a system",
-          "required": true
+          "required": true,
+          "type": "integer"
         },
         {
           "name": "tiketId",
           "in": "path",
           "description": "Id of ticket assigned to counter",
-          "required": true
+          "required": true,
+          "type": "integer"
         }
       ]
     }
